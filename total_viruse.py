@@ -2,21 +2,29 @@ import requests
 import os
 import time
 import sys
+import tkinter
 my_api_key = "f651578a5c868d30176821d0b261506ef968969f2a7260df9ebbe2808bbf6fc0"
 url_of_post_file =  r"https://www.virustotal.com/vtapi/v2/file/scan"
 url = r'https://www.virustotal.com/vtapi/v2/file/report'
+
 def id_virus_api_wait_for_the_report(id):
-        time.sleep(35)
+        time.sleep(38)
         params = {'apikey': my_api_key, 'resource': id }
         print(id)
         response3 = requests.get(url, params=params)
         # print(response3.status_code)
         
             # print(response3.json())
-        response3 = response3.json()
-        if response3["positives"] > 0:
-                 print("have virus in the foler")
-                 sys.exit()
+        if not response3:
+             raise Exception("dont get response3")
+        elif response3.status_code == 200:           
+            response3 = response3.json()
+            if "positives" in response3:
+                if response3["positives"] > 0:
+                    have_virus()
+                else:
+                     print("dont have respons")   
+                 
                  
        
 
@@ -58,6 +66,24 @@ def open_every_file_in_dir(file_path):
 def main():
 # print(os.listdir(r"C://Users//User//OneDrive//שולחן העבודה//theviruse"))
     open_every_file_in_dir(r"C://Users//User//OneDrive//שולחן העבודה//theviruse")
+    
+
+
+def have_virus():
+    print("you have virus in the folder !!")
+    win = tkinter.Tk()
+    win.geometry("680x500")
+    write = tkinter.Label(win,text=" you have virus in the folder",font=("Arial",25),fg="red")
+    write.pack(side="bottom")
+    img = tkinter.PhotoImage(file="hacking.png")
+    label = tkinter.Label(win,image=img,)
+    label.pack()
+    win.after(13000,win.destroy)
+    win.mainloop() 
+    sys.exit()
+    
+     
+    
 
 
 if __name__ == "__main__":
