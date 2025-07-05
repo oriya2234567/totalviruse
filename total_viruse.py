@@ -8,7 +8,7 @@ url_of_post_file =  r"https://www.virustotal.com/vtapi/v2/file/scan"
 url = r'https://www.virustotal.com/vtapi/v2/file/report'
 
 def id_virus_api_wait_for_the_report(id):
-        time.sleep(38)
+        time.sleep(40)
         params = {'apikey': my_api_key, 'resource': id }
         print(id)
         response3 = requests.get(url, params=params)
@@ -23,7 +23,11 @@ def id_virus_api_wait_for_the_report(id):
                 if response3["positives"] > 0:
                     have_virus()
                 else:
-                     print("dont have respons")   
+                     print("dont have any virus for now")   
+            else:
+                print("dont have respons")
+        else:
+            print("respons is dont 200 (not ok)")
                  
                  
        
@@ -65,7 +69,16 @@ def open_every_file_in_dir(file_path):
 
 def main():
 # print(os.listdir(r"C://Users//User//OneDrive//שולחן העבודה//theviruse"))
-    open_every_file_in_dir(r"C://Users//User//OneDrive//שולחן העבודה//theviruse")
+    open_every_file_in_dir(r"C://Users//User//OneDrive//שולחן העבודה//wda")
+    win = tkinter.Tk()
+    img = tkinter.PhotoImage(file="hacking.png")
+    label2 = tkinter.Label(win,image=img)
+    label2.pack()
+    mes = tkinter.Label(text="you dont have virus in this folder", font=("Arial",24), fg= "blue")
+    mes.pack()
+    win.after(13000,win.destroy)
+
+    win.mainloop()
     
 
 
